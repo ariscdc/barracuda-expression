@@ -31,5 +31,5 @@
     String hashValue = barracudaExpression
             .map("myPayload", myPayloadMap)
             .map("myCustomData", myCustomDataMap)
-            .eval();
+            .eval(String.class);
 ```
