@@ -6,10 +6,10 @@
 ```java
     String expression = "" +
             "${encrypt.des(" +
-                "request.payload," +
-                "${hash.md5(@request.payload, @channel.merchantId2, ${random.long()})}," +
-                "@channel.merchantKey," +
-                "@channel.merchantKey2" +
+                "myPayload.data," +
+                "${hash.md5(@myPayload.data, @myCustomData.key2, ${random.long()})}," +
+                "@myCustomData.key," +
+                "@myCustomData.key2" +
             ")}";
 
     BarracudaCompiler barracudaCompiler = BarracudaCompilerBuilder
@@ -21,15 +21,15 @@
 
     BarracudaExpression barracudaExpression = barracudaCompiler.compile(expression);
 
-    Map<String, Object> requestMap = new HashMap<>();
-    requestMap.put("payload", "hello");
+    Map<String, Object> myPayloadMap = new HashMap<>();
+    myPayloadMap.put("data", "dGhpcyBpcyBteSBwYXlsb2FkLg==");
 
-    Map<String, Object> channelMap = new HashMap<>();
-    requestMap.put("merchantKey", "123");
-    requestMap.put("merchantKey2", "789");
+    Map<String, Object> myCustomDataMap = new HashMap<>();
+    myCustomDataMap.put("key", "12345");
+    myCustomDataMap.put("key2", "67890");
 
     String hashValue = barracudaExpression
-            .map("request", requestMap)
-            .map("channel", channelMap)
+            .map("myPayload", myPayloadMap)
+            .map("myCustomData", myCustomDataMap)
             .eval();
 ```
