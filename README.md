@@ -6,7 +6,8 @@
 ```java
     String expression = "" +
             "${encrypt.des(" +
-                "request.payload, ${hash.md5(@request.payload, @channel.merchantId2)}, ${random.long()}," +
+                "request.payload," +
+                "${hash.md5(@request.payload, @channel.merchantId2, ${random.long()})}," +
                 "@channel.merchantKey," +
                 "@channel.merchantKey2" +
             ")}";
